@@ -1,0 +1,13 @@
+{
+  "name": "vanir",
+  "version": "1.0.0",
+  "description": "Self-forge transactions",
+  "main": "lib/index.js",
+  "repository": "https://github.com/ItsANameToo/vanir",
+  "author": "ItsANameToo",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@arkecosystem/core-container": "^0.2.0"
+  }
+}
