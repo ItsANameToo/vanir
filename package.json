@@ -8,6 +8,8 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "@arkecosystem/core-container": "^0.2.0"
+    "@arkecosystem/core-container": "^0.2.0",
+    "lodash": "^4.17.11",
+    "pluralize": "^7.0.0"
   }
 }
