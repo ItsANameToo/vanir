@@ -1,5 +1,5 @@
 {
-  "name": "vanir",
+  "name": "@itsanametoo/vanir",
   "version": "1.0.0",
   "description": "Self-forge transactions",
   "main": "lib/index.js",
