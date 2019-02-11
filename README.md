@@ -6,21 +6,8 @@
 
 ### Clone
 
-JavaScript (before v2.1)
-
 ```bash
 cd ~/ark-core/plugins
-git clone https://github.com/ItsANameToo/vanir.git
-cd vanir
-lerna bootstrap
-```
-
----
-
-TypeScript (v2.1 and up)
-
-```bash
-cd ~/core/plugins
 git clone https://github.com/ItsANameToo/vanir.git
 cd vanir
 lerna bootstrap
@@ -30,10 +17,7 @@ lerna bootstrap
 
 Edit the plugin config file located at:
 
-* Before v2.1: `~/.ark/config/plugins.js`
-* v2.1 and up: `~/.config/ark-core/$network/plugins.js`
-    
-    `$network` is either `devnet` or `mainnet`
+`~/.config/ark-core/{mainnet|devnet|testnet}/plugins.js`
 
 Add the following line to the end of the file (or at least after `core-p2p` gets included):
 
@@ -55,7 +39,7 @@ This will add the plugin, but before it can be used you first need to configure 
 ### Configure
 
 In the same `plugins.js` file where you added the plugin, you will also need to define the configuration properties.
-The configuration includes an `enabled` flag and an array of public keys (`pubkeys`) that will be used to filter transactions on.
+The configuration includes an `enabled` flag and an array of public keys (`publicKeys`) that will be used to filter transactions on.
 An example configuration might look like this:
 
 ```javascript
@@ -65,7 +49,7 @@ module.exports = {
     ...
     '@itsanametoo/vanir': {
         enabled: true, // Enables the plugin, default value is false
-        pubkeys: [ // A list of public keys for which transactions will not be broadcasted
+        publicKeys: [ // A list of public keys for which transactions will not be broadcasted
             'pubkey1',
             'pubkey2',
             ...
