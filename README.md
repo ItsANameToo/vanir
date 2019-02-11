@@ -31,7 +31,9 @@ lerna bootstrap
 Edit the plugin config file located at:
 
 * Before v2.1: `~/.ark/config/plugins.js`
-* v2.1 and up: `~/.config/ark-core/devnet/plugins.js`
+* v2.1 and up: `~/.config/ark-core/$network/plugins.js`
+    
+    `$network` is either `devnet` or `mainnet`
 
 Add the following line to the end of the file (or at least after `core-p2p` gets included):
 
