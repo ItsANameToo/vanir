@@ -40,6 +40,7 @@ This will add the plugin, but before it can be used you first need to configure 
 
 In the same `plugins.js` file where you added the plugin, you will also need to define the configuration properties.
 The configuration includes an `enabled` flag and an array of public keys (`publicKeys`) that will be used to filter transactions on.
+This means that every transaction that is sent to your forger from and address in the public key list will be kept and not broadcasted to the network; hence self-forging the transaction.
 An example configuration might look like this:
 
 ```javascript
