@@ -21,27 +21,19 @@ Edit the plugin config file located at:
 
 Add the following line to the end of the file (or at least after `core-p2p` gets included):
 
-`'@itsanametoo/vanir': {}`
-
-It will look something like this:
-
 ```javascript
-module.exports = {
-    '@arkecosystem/core-event-emitter': {},
-    '@arkecosystem/core-logger-winston': {},
-    ...
-    '@itsanametoo/vanir': {} // This line is added at the end of the file
+'@itsanametoo/vanir': {
+    enabled: true, // Enables the plugin, default value is false
+    publicKeys: [ // A list of public keys for which transactions will not be broadcasted
+        'pubkey1',
+        'pubkey2',
+        ...
+        'pubkeyn'
+    ]
 }
 ```
 
-This will add the plugin, but before it can be used you first need to configure it!
-
-### Configure
-
-In the same `plugins.js` file where you added the plugin, you will also need to define the configuration properties.
-The configuration includes an `enabled` flag and an array of public keys (`publicKeys`) that will be used to filter transactions on.
-This means that every transaction that is sent to your forger from and address in the public key list will be kept and not broadcasted to the network; hence self-forging the transaction.
-An example configuration might look like this:
+It will look something like this:
 
 ```javascript
 module.exports = {
@@ -59,6 +51,28 @@ module.exports = {
     }
 }
 ```
+
+You will need to configure this a little bit in order to forge your own transactions.
+The configuration includes an `enabled` flag and an array of public keys (`publicKeys`) that will be used to filter transactions on.
+This means that every transaction that is sent to your forger from and address in the public key list will be kept and not broadcasted to the network; hence self-forging the transaction.
+An example configuration might look like this:
+
+```javascript
+module.exports = {
+    '@arkecosystem/core-event-emitter': {},
+    '@arkecosystem/core-logger-winston': {},
+    ...
+    '@itsanametoo/vanir': {
+        enabled: true, // Enables the plugin, default value is false
+        publicKeys: [ // A list of public keys for which transactions will not be broadcasted
+            '0236d5232cdbd1e7ab87fad10ebe689c4557bc9d0c408b6773be964c837231d5f0',
+            '033a5474f68f92f254691e93c06a2f22efaf7d66b543a53efcece021819653a200'
+        ]
+    }
+}
+```
+
+From the example config, this will result in the addresses belonging to the two specified public keys to have their transactions kept and self-forged when they are sent to the node.
 
 ### Enabling
 
