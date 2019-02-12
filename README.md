@@ -30,8 +30,8 @@ module.exports = {
     '@itsanametoo/vanir': {
         enabled: true, // Enables the plugin, default value is false
         publicKeys: [ // A list of public keys for which transactions will not be broadcasted
-            '0236d5232cdbd1e7ab87fad10ebe689c4557bc9d0c408b6773be964c837231d5f0',
-            '033a5474f68f92f254691e93c06a2f22efaf7d66b543a53efcece021819653a200'
+            'examplePublicKey1',
+            'examplePublicKey2'
         ]
     }
 ```
