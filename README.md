@@ -26,7 +26,7 @@ module.exports = {
     '@arkecosystem/core-event-emitter': {},
     '@arkecosystem/core-logger-winston': {},
     ...
-    // Snipped to add
+    // Snippet to add
     '@itsanametoo/vanir': {
         enabled: true, // Enables the plugin, default value is false
         publicKeys: [ // A list of public keys for which transactions will not be broadcasted
