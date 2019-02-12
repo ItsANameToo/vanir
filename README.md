@@ -87,6 +87,10 @@ It's also possible to restart the services through the Core Commander.
 - [ItsANameToo](https://github.com/itsanametoo)
 - [All Contributors](../../contributors)
 
+## Update notes
+
+In case of updates, this section will describe the steps needed to successfully update the plugin.
+
 ## License
 
 [MIT](LICENSE) © ItsANameToo
