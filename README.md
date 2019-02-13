@@ -50,14 +50,31 @@ Afterwards you can check if everything is running fine again with the `pm2 logs`
 
 It's also possible to restart the services through the Core Commander.
 
+### Testing
+
+You can (and SHOULD) test if Vanir is properly configured by sending a transaction to your node from an address belonging to one of the public keys you specified in the configuration.
+If properly configured, Vanir will filter that transaction and it will be confirmed in the next block you forge!
+If you have the latest version of Vanir installed, the DEBUG logs will show if it has filtered any transactions: `[VANIR] Filtered 1 transaction to self-forge`.
+
+## Update notes
+
+In case of updates, this section will describe the steps needed to successfully update the plugin if there are any additional steps.
+In general you can get fetch and install the latest changes of the plugin as follows:
+
+```bash
+cd ~/ark-core/plugins/vanir
+git pull
+lerna bootstrap
+
+# Restart the processes
+pm2 restart all
+pm2 logs
+```
+
 ## Credits
 
 - [ItsANameToo](https://github.com/itsanametoo)
 - [All Contributors](../../contributors)
-
-## Update notes
-
-In case of updates, this section will describe the steps needed to successfully update the plugin.
 
 ## License
 
