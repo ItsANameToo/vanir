@@ -6,19 +6,6 @@
 
 ### Clone
 
-Depending on the version of core you are running, you need to install the plugin in a different way:
-
-Core 2.1
-
-```bash
-cd ~/ark-core/plugins
-git clone https://github.com/ItsANameToo/vanir.git
-cd vanir
-lerna bootstrap
-```
-
-Core 2.2+ (currently only on devnet)
-
 ```bash
 yarn global add @itsanametoo/vanir
 ```
