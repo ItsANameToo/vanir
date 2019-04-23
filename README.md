@@ -59,13 +59,7 @@ In case of updates, this section will describe the steps needed to successfully 
 In general you can get fetch and install the latest changes of the plugin as follows:
 
 ```bash
-cd ~/ark-core/plugins/vanir
-git pull
-lerna bootstrap
-
-# Restart the processes
-pm2 restart all
-pm2 logs
+yarn global upgrade @itsanametoo/vanir
 ```
 
 ## Credits
