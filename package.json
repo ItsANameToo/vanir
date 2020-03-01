@@ -7,7 +7,7 @@
   "author": "ItsANameToo",
   "license": "MIT",
   "dependencies": {
-    "@arkecosystem/core-container": "^0.2.0",
+    "@arkecosystem/crypto": "^2.6.11",
     "lodash.shuffle": "^4.2.0",
     "lodash.take": "^4.1.1",
     "pluralize": "^7.0.0"
