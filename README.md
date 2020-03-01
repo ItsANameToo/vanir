@@ -30,7 +30,8 @@ module.exports = {
         publicKeys: [ // A list of public keys for which transactions will not be broadcasted
             'examplePublicKey1',
             'examplePublicKey2'
-        ]
+        ],
+        delegates: 'username' // Optional, a username or list of usernames of delegates whose current status the plugin will check against
     }
 ```
 
