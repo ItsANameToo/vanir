@@ -26,7 +26,6 @@ module.exports = {
     // Snippet to add
     '@itsanametoo/vanir': {
         enabled: true, // Enables the plugin, default value is false
-        overrideNotForging: false // Filters the transactions even if no configured delegate is forging, default value is false
         publicKeys: [ // A list of public keys for which transactions will not be broadcasted
             'examplePublicKey1',
             'examplePublicKey2'
