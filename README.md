@@ -29,13 +29,14 @@ module.exports = {
         publicKeys: [ // A list of public keys for which transactions will not be broadcasted
             'examplePublicKey1',
             'examplePublicKey2'
-        ]
+        ],
+        delegates: 'username' // Optional, a username or list of usernames of delegates whose current status the plugin will check against
     }
 ```
 
 You will need to configure this a little bit in order to forge your own transactions.
 The configuration includes an `enabled` flag and an array of public keys `publicKeys` that will be used to filter transactions on.
-This means that every transaction that is sent to your forger from and address in the public key list will be kept and not broadcasted to the network; hence self-forging the transaction.
+This means that every transaction that is sent to your forger from an address in the public key list will be kept and not broadcasted to the network; hence self-forging the transaction.
 
 From the example config, this will result in the addresses belonging to the two specified public keys to have their transactions kept and self-forged when they are sent to the node.
 
