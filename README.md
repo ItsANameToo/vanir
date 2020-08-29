@@ -39,6 +39,10 @@ This means that every transaction that is sent to your forger from and address i
 
 From the example config, this will result in the addresses belonging to the two specified public keys to have their transactions kept and self-forged when they are sent to the node.
 
+### Compendia
+
+When using `vanir` on the Compendia network, you need to perform an additional step for core to pick up the plugin. After globally installing it with `yarn`, you have to move it to the core installation by running `cp -r ~/.config/yarn/global/node_modules/@itsanametoo/ ~/compendia-core/node_modules/`. This will not persist between Compendia core updates, meaning you will have to run the above line after each Compendia update.
+
 ### Enabling
 
 Before the plugin will be picked up by the core implementation, you need to restart the process.
