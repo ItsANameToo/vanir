@@ -1,15 +1,22 @@
 {
   "name": "@itsanametoo/vanir",
-  "version": "2.0.1",
+  "version": "3.0.10",
   "description": "Self-forge transactions",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "repository": "https://github.com/ItsANameToo/vanir",
   "author": "ItsANameToo",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "compile": "../../node_modules/typescript/bin/tsc",
+    "build": "yarn clean && yarn compile",
+    "clean": "del dist"
+  },
   "dependencies": {
-    "@arkecosystem/core-container": "^0.2.0",
-    "lodash.shuffle": "^4.2.0",
-    "lodash.take": "^4.1.1",
-    "pluralize": "^7.0.0"
+    "@arkecosystem/core-kernel": "3.0.0-next.35",
+    "@arkecosystem/crypto": "3.0.0-next.35",
+    "@types/node": "^16.9.1"
   }
 }
