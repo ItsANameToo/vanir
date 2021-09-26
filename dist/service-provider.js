@@ -22,7 +22,7 @@ class ServiceProvider extends core_kernel_1.Providers.ServiceProvider {
     }
     async register() {
         this.logger.info("[VANIR] Registering plugin");
-        this.app.bind(this.service).to(broadcast_service_1.default);
+        this.app.bind(this.service).to(broadcast_service_1.default).inSingletonScope();
     }
     async boot() {
         this.logger.info("[VANIR] Overwriting transaction broadcast function with Vanir");

@@ -14,13 +14,15 @@ const crypto_1 = require("@arkecosystem/crypto");
 let BroadcastService = class BroadcastService {
     boot() {
         if (this.broadcaster) {
-            this.broadcaster.broadcastTransactions = async function (transactions) {
+            this.broadcaster.broadcastTransactions = async (transactions) => {
+                var _a;
                 if (transactions.length === 0) {
                     this.logger.warning("Broadcasting 0 transactions");
                     return;
                 }
                 const originalLength = transactions.length;
-                const publicKeys = []; // this.configuration.get("publicKeys"); // TODO: fetch from config
+                const publicKeys = (_a = this.vanirConfiguration.get("publicKeys")) !== null && _a !== void 0 ? _a : [];
+                this.logger.warning(publicKeys);
                 // Filter transactions, based on the public keys in the config
                 transactions = transactions.filter(transaction => { var _a; return !publicKeys.includes((_a = transaction.data.senderPublicKey) !== null && _a !== void 0 ? _a : ''); });
                 const lengthDiff = originalLength - transactions.length;
@@ -49,6 +51,28 @@ __decorate([
     core_kernel_1.Container.inject(core_kernel_1.Container.Identifiers.PeerTransactionBroadcaster),
     __metadata("design:type", Object)
 ], BroadcastService.prototype, "broadcaster", void 0);
+__decorate([
+    core_kernel_1.Container.inject(core_kernel_1.Container.Identifiers.LogService),
+    __metadata("design:type", Object)
+], BroadcastService.prototype, "logger", void 0);
+__decorate([
+    core_kernel_1.Container.inject(core_kernel_1.Container.Identifiers.PluginConfiguration),
+    core_kernel_1.Container.tagged("plugin", "@arkecosystem/core-p2p"),
+    __metadata("design:type", core_kernel_1.Providers.PluginConfiguration)
+], BroadcastService.prototype, "configuration", void 0);
+__decorate([
+    core_kernel_1.Container.inject(core_kernel_1.Container.Identifiers.PluginConfiguration),
+    core_kernel_1.Container.tagged("plugin", "@itsanametoo/vanir"),
+    __metadata("design:type", core_kernel_1.Providers.PluginConfiguration)
+], BroadcastService.prototype, "vanirConfiguration", void 0);
+__decorate([
+    core_kernel_1.Container.inject(core_kernel_1.Container.Identifiers.PeerRepository),
+    __metadata("design:type", Object)
+], BroadcastService.prototype, "repository", void 0);
+__decorate([
+    core_kernel_1.Container.inject(core_kernel_1.Container.Identifiers.PeerCommunicator),
+    __metadata("design:type", Object)
+], BroadcastService.prototype, "communicator", void 0);
 BroadcastService = __decorate([
     core_kernel_1.Container.injectable()
 ], BroadcastService);

@@ -6,16 +6,33 @@ export default class BroadcastService {
     @Container.inject(Container.Identifiers.PeerTransactionBroadcaster)
     private readonly broadcaster!: Contracts.P2P.TransactionBroadcaster;
 
+    @Container.inject(Container.Identifiers.LogService)
+    private readonly logger!: Contracts.Kernel.Logger;
+
+    @Container.inject(Container.Identifiers.PluginConfiguration)
+    @Container.tagged("plugin", "@arkecosystem/core-p2p")
+    private readonly configuration!: Providers.PluginConfiguration;
+
+    @Container.inject(Container.Identifiers.PluginConfiguration)
+    @Container.tagged("plugin", "@itsanametoo/vanir")
+    private readonly vanirConfiguration!: Providers.PluginConfiguration;
+
+    @Container.inject(Container.Identifiers.PeerRepository)
+    private readonly repository!: Contracts.P2P.PeerRepository;
+
+    @Container.inject(Container.Identifiers.PeerCommunicator)
+    private readonly communicator!: Contracts.P2P.PeerCommunicator;
+
     public boot(): void {
         if (this.broadcaster) {
-            (this.broadcaster as any).broadcastTransactions = async function(transactions: Interfaces.ITransaction[]): Promise<void> {
+            (this.broadcaster as any).broadcastTransactions = async (transactions: Interfaces.ITransaction[]): Promise<void> => {
                 if (transactions.length === 0) {
                     this.logger.warning("Broadcasting 0 transactions");
                     return;
                 }
 
                 const originalLength = transactions.length
-                const publicKeys: string[] = []; // this.configuration.get("publicKeys"); // TODO: fetch from config
+                const publicKeys: string[] = this.vanirConfiguration.get("publicKeys") ?? [];
 
                 // Filter transactions, based on the public keys in the config
                 transactions = transactions.filter(transaction => !publicKeys.includes(transaction.data.senderPublicKey ?? ''))
@@ -43,7 +60,7 @@ export default class BroadcastService {
                 const promises = peers.map((p) => this.communicator.postTransactions(p, transactionsBroadcast));
 
                 await Promise.all(promises);
-            }
+            };
         }
     }
 }
