@@ -1,6 +1,6 @@
 {
   "name": "@itsanametoo/vanir",
-  "version": "3.0.10",
+  "version": "3.0.0",
   "description": "Self-forge transactions",
   "main": "dist/index.js",
   "repository": "https://github.com/ItsANameToo/vanir",

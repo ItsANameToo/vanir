@@ -4,40 +4,74 @@
 
 ## Installation
 
-### Clone
+### Yarn Install
+
+> This is a temporary install description to make it work with Core v3 until a proper hook is implemented
+
+Install the plugin based on the `v3` branch
 
 ```bash
-yarn global add @itsanametoo/vanir
+yarn global add https://github.com/ItsANameToo/vanir#feat/v3
 ```
 
-### Register Plugin
+### Core Adjustment
+
+For the time being, you need to make a slight adjustment to core in order to allow the plugin to override the required method. Start by opening the following file:
+
+```bash
+nano .config/yarn/global/node_modules/@arkecosystem/core-p2p/dist/service-provider.js
+```
+
+Scroll down until you reach the `registerServices()` line, which will be followed by a bunch of `app.bind(...)` instances. Find the one regarding the `TransactionBroadcaster` and add `.inSingletonScope()` to the end of it (to match the other lines). For example this would result in the following change:
+
+```js
+// Before
+this.app.bind(core_kernel_1.Container.Identifiers.PeerTransactionBroadcaster).to(transaction_broadcaster_1.TransactionBroadcaster);
+
+// After
+this.app.bind(core_kernel_1.Container.Identifiers.PeerTransactionBroadcaster).to(transaction_broadcaster_1.TransactionBroadcaster).inSingletonScope();
+```
+
+**Note**: this change will not persist when updating core, so make sure to re-apply it when afterwards.
+
+### Register & Configure Plugin
 
 Edit the plugin config file located at:
 
-`~/.config/ark-core/{mainnet|devnet|testnet}/plugins.js`
+`~/.config/ark-core/{mainnet|devnet|testnet}/app.json`
 
-Add the following snippet to the end of the file (or at least after `core-p2p` gets included):
+Add the `vanir` configuration to the `core` or `relay` property, depending on how you are running core. Make sure to add it at the end of the list (or at least after `core-p2p` gets included):
 
-```javascript
-module.exports = {
-    '@arkecosystem/core-event-emitter': {},
-    '@arkecosystem/core-logger-winston': {},
+```json
+{
     ...
-    // Snippet to add
-    '@itsanametoo/vanir': {
-        enabled: true, // Enables the plugin, default value is false
-        publicKeys: [ // A list of public keys for which transactions will not be broadcasted
-            'examplePublicKey1',
-            'examplePublicKey2'
+    "relay": {
+        "plugins": [
+            {
+                "package": "@arkecosystem/core-transaction-pool"
+            },
+            ...
+
+            // Configuration to add
+            {
+                "package": "@itsanametoo/vanir",
+                "options": {
+                    "enabled": true,
+                    "publicKeys": [
+                        "examplePublicKey"
+                    ]
+                }
+            }
         ]
     }
+}
 ```
 
 You will need to configure this a little bit in order to forge your own transactions.
 The configuration includes an `enabled` flag and an array of public keys `publicKeys` that will be used to filter transactions on.
 This means that every transaction that is sent to your forger from and address in the public key list will be kept and not broadcasted to the network; hence self-forging the transaction.
 
-From the example config, this will result in the addresses belonging to the two specified public keys to have their transactions kept and self-forged when they are sent to the node.
+From the example config, this will result in the addresses belonging to the specified public key to have its transactions kept and self-forged when they are sent to the node.
 
 ### Compendia
 

@@ -1,6 +1,5 @@
 import { Container, Contracts, Providers } from "@arkecosystem/core-kernel";
 
-//import { IOptions } from "./interface";
 import BroadcastService from "./broadcast-service";
 
 export class ServiceProvider extends Providers.ServiceProvider {
