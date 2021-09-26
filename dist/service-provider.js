@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_kernel_1 = require("@arkecosystem/core-kernel");
-//import { IOptions } from "./interface";
 const broadcast_service_1 = __importDefault(require("./broadcast-service"));
 class ServiceProvider extends core_kernel_1.Providers.ServiceProvider {
     constructor() {

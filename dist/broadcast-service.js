@@ -22,7 +22,6 @@ let BroadcastService = class BroadcastService {
                 }
                 const originalLength = transactions.length;
                 const publicKeys = (_a = this.vanirConfiguration.get("publicKeys")) !== null && _a !== void 0 ? _a : [];
-                this.logger.warning(publicKeys);
                 // Filter transactions, based on the public keys in the config
                 transactions = transactions.filter(transaction => { var _a; return !publicKeys.includes((_a = transaction.data.senderPublicKey) !== null && _a !== void 0 ? _a : ''); });
                 const lengthDiff = originalLength - transactions.length;
