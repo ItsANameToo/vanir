@@ -9,12 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+console.trace();
 const core_kernel_1 = require("@arkecosystem/core-kernel");
 const self_forge_extension_1 = require("./self-forge-extension");
 class ServiceProvider extends core_kernel_1.Providers.ServiceProvider {
     async register() {
+        console.trace();
         this.logger.info("[VANIR] Registering plugin");
-        this.app.bind(core_kernel_1.Container.Identifiers.TransactionPoolProcessorExtension).to(self_forge_extension_1.SelfForgeExtension);
+        this.app.rebind(core_kernel_1.Container.Identifiers.TransactionPoolProcessorExtension).to(self_forge_extension_1.SelfForgeExtension);
     }
     async bootWhen(serviceProvider) {
         return !!this.config().get("enabled");

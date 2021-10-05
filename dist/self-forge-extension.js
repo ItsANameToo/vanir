@@ -12,14 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_kernel_1 = require("@arkecosystem/core-kernel");
 let SelfForgeExtension = class SelfForgeExtension extends core_kernel_1.Contracts.TransactionPool.ProcessorExtension {
     async throwIfCannotBroadcast(transaction) {
+        var _a, _b;
         this.logger.debug('hi there, listening');
-        await this.dynamicFeeMatcher.throwIfCannotBroadcast(transaction);
-        // const publicKeys: string[] = this.vanirConfiguration.get("publicKeys") ?? [];
-        // if (publicKeys.includes(transaction.data.senderPublicKey ?? '')) {
-        //     this.logger.debug(transaction);
-        //     // TODO: ignore transactions containing public key
-        //     return;
-        // }
+        const publicKeys = (_a = this.vanirConfiguration.get("publicKeys")) !== null && _a !== void 0 ? _a : [];
+        if (publicKeys.includes((_b = transaction.data.senderPublicKey) !== null && _b !== void 0 ? _b : '')) {
+            this.logger.debug(transaction);
+            // TODO: ignore transactions containing public key
+            return;
+        }
     }
 };
 __decorate([
@@ -27,9 +27,10 @@ __decorate([
     __metadata("design:type", Object)
 ], SelfForgeExtension.prototype, "logger", void 0);
 __decorate([
-    core_kernel_1.Container.inject(core_kernel_1.Container.Identifiers.TransactionPoolDynamicFeeMatcher),
-    __metadata("design:type", Object)
-], SelfForgeExtension.prototype, "dynamicFeeMatcher", void 0);
+    core_kernel_1.Container.inject(core_kernel_1.Container.Identifiers.PluginConfiguration),
+    core_kernel_1.Container.tagged("plugin", "@itsanametoo/vanir"),
+    __metadata("design:type", core_kernel_1.Providers.PluginConfiguration)
+], SelfForgeExtension.prototype, "vanirConfiguration", void 0);
 SelfForgeExtension = __decorate([
     core_kernel_1.Container.injectable()
 ], SelfForgeExtension);

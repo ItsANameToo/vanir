@@ -15,8 +15,8 @@
     "clean": "del dist"
   },
   "dependencies": {
-    "@arkecosystem/core-kernel": "file:./../../packages/core-kernel",
-    "@arkecosystem/crypto": "file:./../../packages/crypto",
+    "@arkecosystem/core-kernel": "^3.0.0",
+    "@arkecosystem/crypto": "^3.0.0",
     "@types/node": "^16.9.1"
   }
 }
