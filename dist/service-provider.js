@@ -8,24 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_kernel_1 = require("@arkecosystem/core-kernel");
-const broadcast_service_1 = __importDefault(require("./broadcast-service"));
+const self_forge_extension_1 = require("./self-forge-extension");
 class ServiceProvider extends core_kernel_1.Providers.ServiceProvider {
-    constructor() {
-        super(...arguments);
-        this.service = Symbol.for("Vanir<Service>");
-    }
     async register() {
         this.logger.info("[VANIR] Registering plugin");
-        this.app.bind(this.service).to(broadcast_service_1.default).inSingletonScope();
-    }
-    async boot() {
-        this.logger.info("[VANIR] Overwriting transaction broadcast function with Vanir");
-        this.app.get(this.service).boot();
+        this.app.bind(core_kernel_1.Container.Identifiers.TransactionPoolProcessorExtension).to(self_forge_extension_1.SelfForgeExtension);
     }
     async bootWhen(serviceProvider) {
         return !!this.config().get("enabled");

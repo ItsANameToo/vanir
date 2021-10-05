@@ -1,21 +1,14 @@
 import { Container, Contracts, Providers } from "@arkecosystem/core-kernel";
 
-import BroadcastService from "./broadcast-service";
+import { SelfForgeExtension } from "./self-forge-extension";
 
 export class ServiceProvider extends Providers.ServiceProvider {
     @Container.inject(Container.Identifiers.LogService)
     private readonly logger!: Contracts.Kernel.Logger;
 
-    private service = Symbol.for("Vanir<Service>");
-
     public async register(): Promise<void> {
         this.logger.info("[VANIR] Registering plugin");
-        this.app.bind(this.service).to(BroadcastService).inSingletonScope();
-    }
-
-    public async boot(): Promise<void> {
-        this.logger.info("[VANIR] Overwriting transaction broadcast function with Vanir");
-        this.app.get<BroadcastService>(this.service).boot();
+        this.app.bind(Container.Identifiers.TransactionPoolProcessorExtension).to(SelfForgeExtension);
     }
 
     public async bootWhen(serviceProvider?: string): Promise<boolean> {
