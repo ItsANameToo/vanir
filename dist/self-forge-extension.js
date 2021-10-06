@@ -10,15 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_kernel_1 = require("@arkecosystem/core-kernel");
+const vanirError_1 = require("./vanirError");
 let SelfForgeExtension = class SelfForgeExtension extends core_kernel_1.Contracts.TransactionPool.ProcessorExtension {
     async throwIfCannotBroadcast(transaction) {
         var _a, _b;
-        this.logger.debug('hi there, listening');
         const publicKeys = (_a = this.vanirConfiguration.get("publicKeys")) !== null && _a !== void 0 ? _a : [];
         if (publicKeys.includes((_b = transaction.data.senderPublicKey) !== null && _b !== void 0 ? _b : '')) {
-            this.logger.debug(transaction);
-            // TODO: ignore transactions containing public key
-            return;
+            this.logger.debug(`[VANIR] Keeping transaction ${transaction.data.id} to self forge`);
+            throw new vanirError_1.VanirError(`[VANIR] Keeping transaction ${transaction.data.id} to self forge`);
         }
     }
 };

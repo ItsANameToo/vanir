@@ -1,5 +1,6 @@
 import { Container, Contracts, Providers } from "@arkecosystem/core-kernel";
 import { Interfaces } from "@arkecosystem/crypto";
+import { VanirError } from "./vanirError";
 
 @Container.injectable()
 export class SelfForgeExtension extends Contracts.TransactionPool.ProcessorExtension {
@@ -11,14 +12,11 @@ export class SelfForgeExtension extends Contracts.TransactionPool.ProcessorExten
     private readonly vanirConfiguration!: Providers.PluginConfiguration;
 
     public async throwIfCannotBroadcast(transaction: Interfaces.ITransaction): Promise<void> {
-        this.logger.debug('hi there, listening');
-
         const publicKeys: string[] = this.vanirConfiguration.get("publicKeys") ?? [];
 
         if (publicKeys.includes(transaction.data.senderPublicKey ?? '')) {
-            this.logger.debug(transaction);
-            // TODO: ignore transactions containing public key
-            return;
+            this.logger.debug(`[VANIR] Keeping transaction ${transaction.data.id} to self forge`);
+            throw new VanirError(`[VANIR] Keeping transaction ${transaction.data.id} to self forge`);
         }
     }
 }

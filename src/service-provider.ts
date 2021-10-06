@@ -8,7 +8,7 @@ export class ServiceProvider extends Providers.ServiceProvider {
 
     public async register(): Promise<void> {
         this.logger.info("[VANIR] Registering plugin");
-        this.app.rebind(Container.Identifiers.TransactionPoolProcessorExtension).to(SelfForgeExtension);
+        this.app.bind(Container.Identifiers.TransactionPoolProcessorExtension).to(SelfForgeExtension);
     }
 
     public async bootWhen(serviceProvider?: string): Promise<boolean> {
